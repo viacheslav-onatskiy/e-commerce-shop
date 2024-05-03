@@ -1,13 +1,10 @@
 import { Fontisto, Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Welcome } from '../components';
+import Carousel from '../components/home/Carousel';
+import Headings from '../components/home/Headings';
 import styles from './home.style';
 
 function Home() {
@@ -32,6 +29,10 @@ function Home() {
 
       <ScrollView>
         <Welcome />
+
+        <Carousel />
+
+        <Headings />
       </ScrollView>
     </SafeAreaView>
   );
