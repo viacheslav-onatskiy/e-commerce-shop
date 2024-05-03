@@ -5,34 +5,39 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Welcome } from '../components';
 import Carousel from '../components/home/Carousel';
 import Headings from '../components/home/Headings';
+import ProductRow from '../components/products/ProductRow';
 import styles from './home.style';
 
 function Home() {
   return (
     <SafeAreaView style={{ marginTop: 40 }}>
-      <View style={styles.appBarWrapper}>
-        <View style={styles.appBar}>
-          <Ionicons name="locate-outline" size={24} />
+      <ScrollView>
+        <View style={styles.appBarWrapper}>
+          <View style={styles.appBar}>
+            <Ionicons name="locate-outline" size={24} />
 
-          <Text style={styles.location}>Canada Vancouver</Text>
+            <Text style={styles.location}>Canada Vancouver</Text>
 
-          <View style={{ alignItems: 'flex-end' }}>
-            <View style={styles.cartCount}>
-              <Text style={styles.cartNumber}> 9 </Text>
+            <View style={{ alignItems: 'flex-end' }}>
+              <View style={styles.cartCount}>
+                <Text style={styles.cartNumber}> 9 </Text>
+              </View>
+              <TouchableOpacity>
+                <Fontisto name="shopping-bag-1" size={24} />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity>
-              <Fontisto name="shopping-bag-1" size={24} />
-            </TouchableOpacity>
           </View>
         </View>
-      </View>
 
-      <ScrollView>
-        <Welcome />
+        <ScrollView>
+          <Welcome />
 
-        <Carousel />
+          <Carousel />
 
-        <Headings />
+          <Headings />
+
+          <ProductRow />
+        </ScrollView>
       </ScrollView>
     </SafeAreaView>
   );
