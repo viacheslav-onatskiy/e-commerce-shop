@@ -4,16 +4,18 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { COLORS } from '../../constants';
 import styles from './productCartView.style';
 
-const ProductCartView = () => {
+const ProductCartView = ({ item = {} }) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('ProductDetails')}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ProductDetails', { item })}
+    >
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image
             source={{
-              uri: 'https://cdn.mos.cms.futurecdn.net/gHVFUQbbDdiPzXs7qiY8dZ.jpg',
+              uri: item.imageUrl,
             }}
             style={styles.image}
           />
@@ -21,12 +23,12 @@ const ProductCartView = () => {
 
         <View style={styles.details}>
           <Text style={styles.title} numberOfLines={2}>
-            Product nameee
+            {item.title}
           </Text>
           <Text style={styles.supplier} numberOfLines={1}>
-            Product
+            {item.supplier}
           </Text>
-          <Text style={styles.price}>$2333323</Text>
+          <Text style={styles.price}>${item.price}</Text>
         </View>
 
         <TouchableOpacity style={styles.addBtn}>

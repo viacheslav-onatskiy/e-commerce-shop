@@ -4,12 +4,15 @@ import {
   MaterialCommunityIcons,
   SimpleLineIcons,
 } from '@expo/vector-icons';
+import { useRoute } from '@react-navigation/native';
 import { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { COLORS, SIZES } from '../constants';
 import styles from './productDetails.style';
 
 const ProductDetails = ({ navigation }) => {
+  const route = useRoute();
+  const { item } = route.params;
   const [count, setCount] = useState(1);
 
   const increment = () => {
@@ -36,17 +39,17 @@ const ProductDetails = ({ navigation }) => {
 
       <Image
         source={{
-          uri: 'https://cdn.mos.cms.futurecdn.net/gHVFUQbbDdiPzXs7qiY8dZ.jpg',
+          uri: item.imageUrl,
         }}
         style={styles.image}
       />
 
       <View style={styles.details}>
         <View style={styles.titleRow}>
-          <Text style={styles.title}>Product</Text>
+          <Text style={styles.title}>{item.title}</Text>
 
           <View style={styles.priceWrapper}>
-            <Text style={styles.price}>$ 666.123</Text>
+            <Text style={styles.price}>${item.price}</Text>
           </View>
         </View>
 
@@ -72,18 +75,8 @@ const ProductDetails = ({ navigation }) => {
         </View>
 
         <View style={styles.descriptionWrapper}>
-          <Text style={styles.description}>ttteaxt descr</Text>
-          <Text style={styles.descriptionText}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Text>
+          <Text style={styles.description}>{item.product_location}</Text>
+          <Text style={styles.descriptionText}>{item.description}</Text>
         </View>
 
         <View style={{ marginBottom: SIZES.small }}>
