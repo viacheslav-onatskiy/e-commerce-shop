@@ -7,6 +7,7 @@ import Orders from './Orders';
 import ProductDetails from './ProductDetails';
 import Profile from './Profile';
 import Search from './Search';
+import SignUp from './SignUp';
 
 export {
   Cart,
@@ -18,4 +19,5 @@ export {
   ProductDetails,
   Profile,
   Search,
+  SignUp,
 };

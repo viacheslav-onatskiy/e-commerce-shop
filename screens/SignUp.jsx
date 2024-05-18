@@ -1,5 +1,4 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import { Formik } from 'formik';
 import { useState } from 'react';
@@ -18,9 +17,8 @@ import { BackButton, Button } from '../components';
 import { COLORS } from '../constants';
 import styles from './login.style';
 
-const LoginPage = ({ navigation }) => {
+const SignUp = ({ navigation }) => {
   const [loader, setLoader] = useState(false);
-  const [responseData, setResponseData] = useState(null);
   const [obscureText, setObscureText] = useState(false);
 
   const validationSchema = Yup.object({
@@ -30,6 +28,10 @@ const LoginPage = ({ navigation }) => {
     password: Yup.string()
       .min(8, 'Password must be at least 8 characters')
       .required('Required'),
+    location: Yup.string()
+      .min(3, 'Provide a valid location')
+      .required('Required'),
+    username: Yup.string().min(3, 'Provide a valid name').required('Required'),
   });
 
   const invalidFormAlert = () => {
@@ -45,53 +47,18 @@ const LoginPage = ({ navigation }) => {
     ]);
   };
 
-  const login = async (values) => {
-    setLoader(true);
+  const registerUser = async (values) => {
+    const endpoint = 'http://10.0.0.221:5000/api/register';
+    const data = values;
 
     try {
-      // const endpoint = `http://localhost:5000/api/login`;
-      const endpoint = 'http://10.0.0.221:5000/api/login';
-      const data = values;
-
       const response = await axios.post(endpoint, data);
 
-      if (response.status === 200) {
-        setLoader(false);
-        setResponseData(response.data);
-
-        await AsyncStorage.setItem(
-          `user${responseData._id}`,
-          JSON.stringify(responseData)
-        );
-
-        await AsyncStorage.setItem('id', JSON.stringify(responseData._id));
-
-        navigation.replace('Bottom Navigation');
-      } else {
-        Alert.alert('Error Logging In', 'Please provide valid credentials', [
-          {
-            text: 'Cancel',
-            onPress: () => {},
-          },
-          {
-            text: 'Continue',
-            onPress: () => {},
-          },
-        ]);
+      if (response.status === 201) {
+        navigation.replace('Login');
       }
     } catch (error) {
-      Alert.alert('Error', 'Oops, Error logging in, please try again', [
-        {
-          text: 'Cancel',
-          onPress: () => {},
-        },
-        {
-          text: 'Continue',
-          onPress: () => {},
-        },
-      ]);
-    } finally {
-      setLoader(false);
+      console.log('Register User error:', error);
     }
   };
 
@@ -102,15 +69,20 @@ const LoginPage = ({ navigation }) => {
           <BackButton onPress={() => navigation.goBack()} />
           <Image
             source={require('../assets/images/bk.png')}
-            style={styles.loginImage}
+            style={styles.registerImage}
           />
 
           <Text style={styles.title}>Unlimited Luxurious Furniture</Text>
 
           <Formik
-            initialValues={{ email: '', password: '' }}
+            initialValues={{
+              email: '',
+              password: '',
+              location: '',
+              username: '',
+            }}
             validationSchema={validationSchema}
-            onSubmit={(values) => login(values)}
+            onSubmit={(values) => registerUser(values)}
           >
             {({
               handleChange,
@@ -123,6 +95,40 @@ const LoginPage = ({ navigation }) => {
               touched,
             }) => (
               <View>
+                <View style={styles.wrapperInput}>
+                  <Text style={styles.label}>User Name</Text>
+                  <View
+                    style={styles.inputWrapper(
+                      touched.email ? COLORS.secondary : COLORS.offwhite
+                    )}
+                  >
+                    <MaterialCommunityIcons
+                      name="face-man"
+                      size={20}
+                      color={COLORS.gray}
+                      style={styles.iconStyle}
+                    />
+
+                    <TextInput
+                      placeholder="User name"
+                      onFocus={() => {
+                        setFieldTouched('username');
+                      }}
+                      onBlur={() => {
+                        setFieldTouched('username', '');
+                      }}
+                      value={values.username}
+                      onChangeText={handleChange('username')}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      style={{ flex: 1 }}
+                    />
+                  </View>
+                  {touched.username && errors.username && (
+                    <Text style={styles.errorMessage}>{errors.username}</Text>
+                  )}
+                </View>
+
                 <View style={styles.wrapperInput}>
                   <Text style={styles.label}>Email</Text>
                   <View
@@ -154,6 +160,40 @@ const LoginPage = ({ navigation }) => {
                   </View>
                   {touched.email && errors.email && (
                     <Text style={styles.errorMessage}>{errors.email}</Text>
+                  )}
+                </View>
+
+                <View style={styles.wrapperInput}>
+                  <Text style={styles.label}>Location</Text>
+                  <View
+                    style={styles.inputWrapper(
+                      touched.location ? COLORS.secondary : COLORS.offwhite
+                    )}
+                  >
+                    <Ionicons
+                      name="location-outline"
+                      size={20}
+                      color={COLORS.gray}
+                      style={styles.iconStyle}
+                    />
+
+                    <TextInput
+                      placeholder="Enter location"
+                      onFocus={() => {
+                        setFieldTouched('location');
+                      }}
+                      onBlur={() => {
+                        setFieldTouched('location', '');
+                      }}
+                      value={values.location}
+                      onChangeText={handleChange('location')}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      style={{ flex: 1 }}
+                    />
+                  </View>
+                  {touched.location && errors.location && (
+                    <Text style={styles.errorMessage}>{errors.location}</Text>
                   )}
                 </View>
 
@@ -203,19 +243,10 @@ const LoginPage = ({ navigation }) => {
 
                 <Button
                   onPress={isValid ? handleSubmit : invalidFormAlert}
-                  title={'L O G I N'}
+                  title={'S I G N U P'}
                   isValid={isValid}
                   loader={loader}
                 />
-
-                <Text
-                  style={styles.registerText}
-                  onPress={() => {
-                    navigation.navigate('SignUp');
-                  }}
-                >
-                  Register
-                </Text>
               </View>
             )}
           </Formik>
@@ -225,4 +256,4 @@ const LoginPage = ({ navigation }) => {
   );
 };
 
-export default LoginPage;
+export default SignUp;

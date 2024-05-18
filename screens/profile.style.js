@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   menuText: {
     fontFamily: 'regular',
     color: COLORS.gray,
-    marginLeft: 20,
+    marginHorizontal: 20,
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 26,

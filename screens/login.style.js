@@ -8,6 +8,12 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: SIZES.xLarge,
   },
+  registerImage: {
+    height: SIZES.height / 3,
+    width: SIZES.width - 50,
+    resizeMode: 'contain',
+    marginBottom: SIZES.xLarge,
+  },
   title: {
     fontFamily: 'semibold',
     fontSize: SIZES.xLarge,
@@ -44,6 +50,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 5,
     fontSize: SIZES.xSmall,
+  },
+  registerText: {
+    marginTop: 20,
+    textAlign: 'center',
   },
 });
 
