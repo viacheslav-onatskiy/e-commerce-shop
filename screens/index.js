@@ -1,5 +1,5 @@
 import Cart from './Cart';
-import Favourites from './Favourites';
+import Favorites from './Favorites';
 import Home from './Home';
 import LoginPage from './LoginPage';
 import NewRivals from './NewRivals';
@@ -11,7 +11,7 @@ import SignUp from './SignUp';
 
 export {
   Cart,
-  Favourites,
+  Favorites,
   Home,
   LoginPage,
   NewRivals,

@@ -145,7 +145,7 @@ function Profile({ navigation }) {
             ) : (
               <View style={styles.menuWrapper}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('Favourites')}
+                  onPress={() => navigation.navigate('Favorites')}
                 >
                   <View style={styles.menuItem(0.3)}>
                     <MaterialCommunityIcons
@@ -153,7 +153,7 @@ function Profile({ navigation }) {
                       size={24}
                       color={COLORS.primary}
                     />
-                    <Text style={styles.menuText}>Favourites</Text>
+                    <Text style={styles.menuText}>Favorites</Text>
                   </View>
                 </TouchableOpacity>
 

@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native';
 import BottomTabNavigation from './navigation/BottomTabNavigation';
 import {
   Cart,
-  Favourites,
+  Favorites,
   LoginPage,
   NewRivals,
   Orders,
@@ -71,8 +71,8 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Favourites"
-          component={Favourites}
+          name="Favorites"
+          component={Favorites}
           options={{ headerShown: false }}
         />
         <Stack.Screen
