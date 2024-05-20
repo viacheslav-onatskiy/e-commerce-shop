@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginTop: 9,
   },
-  favoriteContainer: {
+  favoriteContainer: (bgColor = '#FFF') => ({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.xSmall,
     padding: SIZES.medium,
     borderRadius: SIZES.small,
-    backgroundColor: '#FFF',
+    backgroundColor: bgColor,
     ...SHADOWS.medium,
     shadowColor: COLORS.secondary,
-  },
+  }),
   imageContainer: {
     width: 70,
     borderRadius: SIZES.medium,
@@ -62,6 +62,22 @@ const styles = StyleSheet.create({
     fontFamily: 'semibold',
     color: COLORS.gray,
     fontSize: 14,
+  },
+  productText: {
+    fontSize: SIZES.medium,
+    color: COLORS.primary,
+    fontFamily: 'bold',
+  },
+  supplier: {
+    fontSize: SIZES.small + 2,
+    color: COLORS.gray,
+    fontFamily: 'regular',
+    marginTop: 3,
+    textTransform: 'capitalize',
+  },
+  deleteButtonContainer: {
+    paddingBottom: 20,
+    paddingLeft: 75,
   },
 });
 

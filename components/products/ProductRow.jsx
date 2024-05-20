@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { COLORS, SIZES } from '../../constants';
 import { useFetch } from '../../hooks';
 import ProductCartView from './ProductCartView';

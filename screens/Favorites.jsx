@@ -65,7 +65,7 @@ const Favorites = ({ navigation }) => {
       <FlatList
         data={favoritesData}
         renderItem={({ item }) => (
-          <View style={styles.favoriteContainer}>
+          <View style={styles.favoriteContainer()}>
             <View style={styles.imageContainer}>
               <Image style={styles.image} source={{ uri: item.imageUrl }} />
             </View>

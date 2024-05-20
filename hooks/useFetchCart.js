@@ -2,14 +2,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const fetchCart = async (productId, quantity) => {
+const useFetchCart = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
     setIsLoading(true);
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
+
     try {
       const endpoint = 'http://10.0.0.221:5000/api/cart/find';
 
@@ -19,14 +20,9 @@ const fetchCart = async (productId, quantity) => {
       };
 
       const response = await axios.get(endpoint, { headers });
-      const newData = JSON.stringify(response.data);
+      const cartProducts = response.data[0]?.products || [];
 
-      const parsedData = JSON.parse(newData);
-      const products = parsedData[0].parsedData;
-
-      await AsyncStorage.setItem('cartCount', JSON.stringify(products.length));
-      setData(products);
-      setIsLoading(false);
+      setData(cartProducts);
     } catch (error) {
       setError(error);
     } finally {
@@ -39,11 +35,11 @@ const fetchCart = async (productId, quantity) => {
   }, []);
 
   const refetchCartData = () => {
-    setIsLoading(true);
     fetchData();
   };
 
-  return { data, loader: isLoading, error, refetchCartData };
+  console.log('data:', data.length);
+  return { data, isLoading, error, refetchCartData };
 };
 
-export default fetchCart;
+export default useFetchCart;
